@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+  api project(':libs:SalesforceSDK')
+}
+
+android {
+  compileSdkVersion 27
+  buildToolsVersion '26.0.2'
+  
+  buildTypes {
+      debug {
+         testCoverageEnabled = true
+      }
+   }
+
+  sourceSets {
+
+    main {
+      manifest.srcFile 'AndroidManifest.xml'
+      java.srcDirs = ['src']
+      resources.srcDirs = ['src']
+      aidl.srcDirs = ['src']
+      renderscript.srcDirs = ['src']
+      res.srcDirs = ['res']
+      assets.srcDirs = ['assets']
+    }
+
+    androidTest.setRoot('../test/RestExplorerTest')
+    androidTest {
+      java.srcDirs = ['../test/RestExplorerTest/src']
+      resources.srcDirs = ['../test/RestExplorerTest/src']
+      res.srcDirs = ['../test/RestExplorerTest/res']
+    }
+  }
+  defaultConfig {
+    testApplicationId "com.salesforce.samples.restexplorer.tests"
+    testInstrumentationRunner "com.salesforce.androidsdk.analytics.util.test.JUnitReportTestRunner"
+  }
+  packagingOptions {
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE'
+  }
+
+  lintOptions {
+    xmlReport true
+    abortOnError false
+  }
+}
+
+afterEvaluate {
+  // Find all connected Android tests and ensure they log all passed tests. This keeps the Travis
+  // from timing out since executing tests are printed to the console.
+  tasks.matching { it.name ==~ /^connected.*AndroidTest$/ }*.logging*.setLevel(LogLevel.INFO)
+}
