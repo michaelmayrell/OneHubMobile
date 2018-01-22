@@ -60,7 +60,7 @@ export default class ShiftsScreen extends React.Component {
  
      fetchData() {
          var that = this;
-         net.query('SELECT Id, Name FROM CMKOneHub__Shift__c LIMIT 10',
+         net.query('SELECT Id, Name FROM Shift__c LIMIT 10',
                    (response) => that.setState({data: response.records})
                   );
      }
