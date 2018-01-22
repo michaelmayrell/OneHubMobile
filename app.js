@@ -49,7 +49,7 @@ import MyTeamScreen from './src/screens/MyTeam';
 import MyWorkScreen from './src/screens/MyWork';
 import CasesScreen from './src/screens/Cases';
 import ShiftsScreen from './src/screens/Shifts';
-import SideMenu from '.bin/OneHubMobile/src/components/SideMenu';
+
 
 
 const MyTeamStack = StackNavigator({    
